@@ -25,18 +25,17 @@ export PACKAGE_ID=<PACKAGE_ID>
 
 ## Capability pattern
 ```bash
-sui client call \
-  --package $PACKAGE_ID \
-  --module capability \
-  --function init \
-  --gas-budget 200000000
+# Note: init() function runs automatically during package publication
+# Check if you have an AdminCap:
+sui client objects $(sui client active-address) | grep AdminCap
+export ADMINCAP_ID=<ADMINCAP_ID_FROM_ABOVE>
 
 # Mint via capability (CLI auto-borrows &AdminCap you own)
 sui client call \
   --package $PACKAGE_ID \
   --module capability \
   --function mint_badge \
-  --args <ADMINCAP_ID> "VIP" 1 $(sui client active-address) \
+  --args $ADMINCAP_ID "VIP" 1 $(sui client active-address) \
   --gas-budget 200000000
 ```
 

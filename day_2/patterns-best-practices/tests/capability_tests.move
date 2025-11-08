@@ -42,15 +42,16 @@ module patterns_best_practices::capability_tests {
 
     #[test]
     #[expected_failure]
+    #[allow(dead_code)]
     public fun cannot_mint_without_cap() {
         let mut sc = test_scenario::begin(ADMIN);
 
         test_scenario::next_tx(&mut sc, RECIPIENT);
         {
             // This should fail because RECIPIENT doesn't have an AdminCap
-            // We try to take an AdminCap that doesn't exist
+            // We try to take an AdminCap that doesn't exist - this will abort
             let _admin_cap = test_scenario::take_from_sender<AdminCap>(&sc);
-            // This line should never be reached due to the take failure above
+            // The following code is unreachable but needed for compilation
             abort 0
         };
 
