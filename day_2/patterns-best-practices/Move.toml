@@ -1,0 +1,7 @@
+[package]
+name = "patterns_best_practices"
+version = "0.0.1"
+edition = "2024.beta"
+
+[addresses]
+patterns_best_practices = "0x0"
